@@ -18,7 +18,10 @@ app.use(express.json());
 
 // Routes
 const produitsRoutes = require('./routes/produits');
+const boutiquesRoutes = require('./routes/boutiques'); // ✅ ajout boutiques
+
 app.use('/api/produits', produitsRoutes);
+app.use('/api/boutiques', boutiquesRoutes); // ✅ route boutiques
 
 // Route de test
 app.get('/', (req, res) => {

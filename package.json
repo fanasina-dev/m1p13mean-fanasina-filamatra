@@ -1,0 +1,21 @@
+{
+  "name": "m1p13mean-fanasina-filamatra",
+  "version": "1.0.0",
+  "description": "Projet MEAN - Centre commercial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fanasina-dev/m1p13mean-fanasina-filamatra.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/fanasina-dev/m1p13mean-fanasina-filamatra/issues"
+  },
+  "homepage": "https://github.com/fanasina-dev/m1p13mean-fanasina-filamatra#readme"
+}
