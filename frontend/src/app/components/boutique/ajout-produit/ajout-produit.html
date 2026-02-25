@@ -1,0 +1,24 @@
+<div class="form-container">
+  <h2>Ajouter un Produit à ma Boutique</h2>
+  
+  <form (ngSubmit)="onSubmit()">
+    <div class="field">
+      <label>Nom du produit</label>
+      <input type="text" [(ngModel)]="nouveauProduit.nom" name="nom" required>
+    </div>
+
+    <div class="field">
+      <label>Description</label>
+      <textarea [(ngModel)]="nouveauProduit.description" name="description"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Prix (€)</label>
+      <input type="number" [(ngModel)]="nouveauProduit.prix" name="prix" required>
+    </div>
+
+    <input type="hidden" [(ngModel)]="nouveauProduit.boutique" name="boutique">
+
+    <button type="submit">Enregistrer</button>
+  </form>
+</div>
