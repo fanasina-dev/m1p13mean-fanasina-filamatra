@@ -1,24 +1,94 @@
-<div class="form-container">
-  <h2>Ajouter un Produit à ma Boutique</h2>
-  
-  <form (ngSubmit)="onSubmit()">
-    <div class="field">
-      <label>Nom du produit</label>
-      <input type="text" [(ngModel)]="nouveauProduit.nom" name="nom" required>
+<!-- src/app/components/boutique/ajout-produit/ajout-produit.html -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <app-sidebar></app-sidebar>
+
+  <!-- CONTENU -->
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <p class="greeting">Boutique</p>
+        <h1 class="page-title">
+          {{ isEditMode ? '✏️ Modifier le produit' : 'Ajouter un produit' }}
+        </h1>
+      </div>
+      <a class="btn-retour" routerLink="/produits">← Retour</a>
+    </header>
+
+    <div *ngIf="isLoading" class="loading-state">
+      ⏳ Chargement du produit...
     </div>
 
-    <div class="field">
-      <label>Description</label>
-      <textarea [(ngModel)]="nouveauProduit.description" name="description"></textarea>
+    <div class="form-wrapper" *ngIf="!isLoading">
+      <div class="form-container">
+
+        <h2 class="form-title">
+          {{ isEditMode ? '✏️ Modifier le produit' : '📦 Ajouter un Produit à ma Boutique' }}
+        </h2>
+
+        <form (ngSubmit)="onSubmit()">
+
+          <div class="field">
+            <label>Nom du produit</label>
+            <input
+              type="text"
+              [(ngModel)]="nouveauProduit.nom"
+              name="nom"
+              required
+              placeholder="Ex: Sac en cuir artisanal"
+            >
+          </div>
+
+          <div class="field">
+            <label>Description</label>
+            <textarea
+              [(ngModel)]="nouveauProduit.description"
+              name="description"
+              placeholder="Décrivez votre produit..."
+              rows="4"
+            ></textarea>
+          </div>
+
+          <!-- Prix et Stock côte à côte -->
+          <div class="field-row">
+            <div class="field">
+              <label>Prix (Ar)</label>
+              <input
+                type="number"
+                [(ngModel)]="nouveauProduit.prix"
+                name="prix"
+                required
+                placeholder="0.00"
+                min="0"
+                step="0.01"
+              >
+            </div>
+            <div class="field">
+              <label>Stock (quantité)</label>
+              <input
+                type="number"
+                [(ngModel)]="nouveauProduit.stock"
+                name="stock"
+                placeholder="0"
+                min="0"
+              >
+            </div>
+          </div>
+
+          <input type="hidden" [(ngModel)]="nouveauProduit.boutique" name="boutique">
+
+          <div class="form-actions">
+            <a class="btn-annuler" routerLink="/produits">Annuler</a>
+            <button type="submit" class="btn-submit">
+              {{ isEditMode ? '✅ Mettre à jour' : '💾 Enregistrer' }}
+            </button>
+          </div>
+
+        </form>
+      </div>
     </div>
 
-    <div class="field">
-      <label>Prix (€)</label>
-      <input type="number" [(ngModel)]="nouveauProduit.prix" name="prix" required>
-    </div>
-
-    <input type="hidden" [(ngModel)]="nouveauProduit.boutique" name="boutique">
-
-    <button type="submit">Enregistrer</button>
-  </form>
+  </main>
 </div>

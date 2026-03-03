@@ -1,0 +1,190 @@
+<!-- src/app/components/boutique/dashboard/dashboard.html -->
+<div class="layout">
+
+  <app-sidebar></app-sidebar>
+
+  <main class="main">
+
+    <!-- TOPBAR -->
+    <header class="topbar">
+      <div>
+        <p class="page-subtitle">Bienvenue 👋 {{ nomBoutique }}</p>
+        <h1 class="page-title">Dashboard</h1>
+      </div>
+      <div class="topbar-right">
+        <button class="btn-add" routerLink="/produits/ajouter">
+          <span>+</span> Ajouter un produit
+        </button>
+      </div>
+    </header>
+
+    <!-- CHARGEMENT -->
+    <div *ngIf="isLoading" class="loading-state">
+      ⏳ Chargement des données...
+    </div>
+
+    <div *ngIf="!isLoading">
+
+      <!-- KPI GRID -->
+      <div class="kpi-grid">
+
+        <div class="kpi-card kpi-products">
+          <span class="kpi-icon">📦</span>
+          <div class="kpi-info">
+            <span class="kpi-label">Total Produits</span>
+            <span class="kpi-value">{{ totalProduits }}</span>
+            <span class="kpi-trend neutral">dans votre catalogue</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-actifs">
+          <span class="kpi-icon">✅</span>
+          <div class="kpi-info">
+            <span class="kpi-label">En stock</span>
+            <span class="kpi-value">{{ produitsActifs }}</span>
+            <span class="kpi-trend up">produits disponibles</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-rupture">
+          <span class="kpi-icon">⚠️</span>
+          <div class="kpi-info">
+            <span class="kpi-label">Rupture de stock</span>
+            <span class="kpi-value">{{ produitsRupture }}</span>
+            <span class="kpi-trend down">à réapprovisionner</span>
+          </div>
+        </div>
+
+        <div class="kpi-card kpi-revenue">
+          <span class="kpi-icon">💰</span>
+          <div class="kpi-info">
+            <span class="kpi-label">Valeur catalogue</span>
+            <span class="kpi-value">{{ chiffreAffaires | number:'1.0-0' }} Ar</span>
+            <span class="kpi-trend up">prix × stock</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CONTENT GRID -->
+      <div class="content-grid">
+
+        <!-- TABLE PRODUITS -->
+        <div class="card">
+          <div class="card-header">
+            <h3>Mes Produits</h3>
+            <div class="search-bar">
+              <input
+                type="text"
+                placeholder="🔍 Rechercher..."
+                [(ngModel)]="searchTerm"
+                (input)="filtrerProduits()"
+              >
+            </div>
+          </div>
+
+          <div *ngIf="produitsFiltres.length === 0" class="empty-state">
+            Aucun produit trouvé.
+            <a routerLink="/produits/ajouter">Ajouter un produit →</a>
+          </div>
+
+          <div class="table-wrapper" *ngIf="produitsFiltres.length > 0">
+            <table>
+              <thead>
+                <tr>
+                  <th>Produit</th>
+                  <th>Prix</th>
+                  <th>Stock</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let p of produitsFiltres" class="table-row">
+                  <td>
+                    <div class="product-cell">
+                      <div class="product-thumb">{{ p.nom?.charAt(0) }}</div>
+                      <div>
+                        <span class="product-name">{{ p.nom }}</span>
+                        <span class="product-desc">{{ p.description }}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td><strong style="color: var(--accent)">{{ p.prix }} Ar</strong></td>
+                  <td>
+                    <span class="stock-badge"
+                      [class.stock-ok]="(p.stock || 0) > 5"
+                      [class.stock-low]="(p.stock || 0) > 0 && (p.stock || 0) <= 5"
+                      [class.stock-rupture]="(p.stock || 0) === 0">
+                      {{ (p.stock || 0) === 0 ? 'Rupture' : p.stock + ' unités' }}
+                    </span>
+                  </td>
+                  <td>
+                    <div class="action-btns">
+                      <button class="btn-icon" (click)="editerProduit(p._id)">✏️</button>
+                      <button class="btn-icon" (click)="supprimerProduit(p._id)">🗑️</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="card-footer" *ngIf="produits.length > 0">
+            <a class="link-more" (click)="voirTousProduits()">
+              Voir tous les produits →
+            </a>
+          </div>
+        </div>
+
+        <!-- RIGHT COL -->
+        <div class="right-col">
+
+          <!-- TOP PRODUITS -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Top Produits (par valeur)</h3>
+            </div>
+
+            <div *ngIf="topProduits.length === 0" class="empty-state">
+              Aucun produit encore.
+            </div>
+
+            <div class="top-products" *ngIf="topProduits.length > 0">
+              <div *ngFor="let p of topProduits; let i = index" class="top-product-item">
+                <span class="rank">#{{ i + 1 }}</span>
+                <span class="top-name">{{ p.nom }}</span>
+                <span class="top-sales">{{ p.valeur | number:'1.0-0' }} Ar</span>
+                <div class="progress-bar">
+                  <div class="progress-fill" [style.width.%]="p.pourcentage"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- INFOS BOUTIQUE -->
+          <div class="card">
+            <div class="card-header">
+              <h3>Ma Boutique</h3>
+            </div>
+            <div class="boutique-info">
+              <div class="info-row">
+                <span class="info-label">Nom</span>
+                <span class="info-value">{{ boutique?.nom }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Email</span>
+                <span class="info-value">{{ boutique?.email }}</span>
+              </div>
+              <div class="info-row">
+                <span class="info-label">Produits</span>
+                <span class="info-value">{{ totalProduits }} articles</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>

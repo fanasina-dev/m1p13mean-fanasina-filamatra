@@ -1,0 +1,58 @@
+<!-- src/app/components/boutique/get-produit/get-produit.html -->
+<div class="layout">
+  <app-sidebar></app-sidebar>
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <p class="greeting">Boutique</p>
+        <h1 class="page-title">📦 Inventaire</h1>
+      </div>
+      <button class="btn-primary" routerLink="/produits/ajouter">
+        + Ajouter un produit
+      </button>
+    </header>
+
+    <div class="liste-container">
+      <h2>📦 Inventaire</h2>
+
+      <div *ngIf="produits.length === 0" class="empty-msg">
+        Aucun produit trouvé. Ajoutez-en un au-dessus !
+      </div>
+
+      <table *ngIf="produits.length > 0" class="produit-table">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Prix (Ar)</th>
+            <th>Stock</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of produits">
+            <td class="nom-cell">{{ p.nom }}</td>
+            <td>{{ p.description }}</td>
+            <td class="prix-cell">{{ p.prix }} Ar</td>
+            <td>
+              <span class="stock-badge"
+                [class.stock-ok]="(p.stock || 0) > 5"
+                [class.stock-low]="(p.stock || 0) > 0 && (p.stock || 0) <= 5"
+                [class.stock-rupture]="(p.stock || 0) === 0">
+                {{ (p.stock || 0) === 0 ? 'Rupture' : p.stock + ' unités' }}
+              </span>
+            </td>
+            <td>
+              <div class="action-group">
+                <button (click)="editer(p._id)" class="btn-edit">✏️ Modifier</button>
+                <button (click)="supprimer(p._id)" class="btn-delete">🗑️ Supprimer</button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+</div>

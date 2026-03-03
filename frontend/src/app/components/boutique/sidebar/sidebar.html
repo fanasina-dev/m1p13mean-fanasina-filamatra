@@ -1,0 +1,38 @@
+<aside class="sidebar" [class.collapsed]="isCollapsed">
+
+  <!-- Brand -->
+  <div class="brand">
+    <span class="brand-icon">🛍️</span>
+    <span class="brand-name">Ma Boutique</span>
+    <button class="toggle-btn" (click)="toggleSidebar()">
+      {{ isCollapsed ? '→' : '←' }}
+    </button>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a
+      *ngFor="let item of navItems"
+      class="nav-item"
+      [routerLink]="item.path"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+     
+      [title]="item.label"
+    >
+      <span class="nav-icon">{{ item.icon }}</span>
+      <span class="nav-label">{{ item.label }}</span>
+      <span class="nav-badge" *ngIf="item.badge">{{ item.badge }}</span>
+    </a>
+  </nav>
+
+  <!-- Footer -->
+  <div class="sidebar-footer">
+    <div class="status">
+      <span class="status-dot"></span>
+      <span>Boutique en ligne</span>
+    </div>
+    <button class="btn-logout" (click)="logout()">⎋ Déconnexion</button>
+  </div>
+
+</aside>

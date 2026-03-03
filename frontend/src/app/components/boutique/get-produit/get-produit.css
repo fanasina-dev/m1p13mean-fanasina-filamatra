@@ -1,0 +1,217 @@
+/* src/app/components/boutique/get-produit/get-produit.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap');
+
+:host {
+  --bg:        #0d0f14;
+  --bg2:       #13161e;
+  --bg3:       #1a1e2a;
+  --border:    rgba(255,255,255,0.07);
+  --text:      #e8eaf0;
+  --muted:     #6b7280;
+  --accent:    #f5a623;
+  --red:       #e8415a;
+  --blue:      #4f8ef7;
+  --sidebar-w: 240px;
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Layout ─────────────────────────────────────────── */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 32px 36px;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(245,166,35,0.05) 0%, transparent 60%),
+    var(--bg);
+}
+
+/* ─── Topbar ─────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.greeting {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 2px;
+}
+
+.page-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.04em;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0d0f14;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-primary:hover {
+  background: #ffb83f;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(245,166,35,0.3);
+}
+
+/* ─── Container ──────────────────────────────────────── */
+.liste-container {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+.liste-container h2 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.empty-msg {
+  text-align: center;
+  padding: 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* ─── Table ──────────────────────────────────────────── */
+.produit-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.produit-table thead tr {
+  border-bottom: 1px solid var(--border);
+}
+
+.produit-table th {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 0 12px 12px;
+  text-align: left;
+}
+
+.produit-table tbody tr {
+  border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
+}
+
+.produit-table tbody tr:last-child { border-bottom: none; }
+.produit-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+.produit-table td {
+  padding: 13px 12px;
+  font-size: 0.875rem;
+  color: var(--text);
+}
+
+/* ─── Cells ──────────────────────────────────────────── */
+.nom-cell  { font-weight: 500; color: var(--text); }
+.prix-cell { font-weight: 700; color: var(--accent); }
+
+/* ─── Boutons action ─────────────────────────────────── */
+.action-group {
+  display: flex;
+  gap: 8px;
+}
+
+.btn-edit {
+  background: rgba(79,142,247,0.1);
+  border: 1px solid rgba(79,142,247,0.3);
+  border-radius: 7px;
+  color: var(--blue);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-edit:hover {
+  background: rgba(79,142,247,0.2);
+  transform: scale(1.05);
+}
+
+.btn-delete {
+  background: rgba(232,65,90,0.1);
+  border: 1px solid rgba(232,65,90,0.3);
+  border-radius: 7px;
+  color: var(--red);
+  padding: 6px 14px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-delete:hover {
+  background: rgba(232,65,90,0.2);
+  transform: scale(1.05);
+}
+
+/* ─── Responsive ─────────────────────────────────────── */
+@media (max-width: 768px) {
+  .main       { margin-left: 0; padding: 16px; }
+  .page-title { font-size: 1.5rem; }
+  .action-group { flex-direction: column; }
+}
+/* ─── Stock badge ─────────────────────────────────────── */
+.stock-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.stock-ok {
+  background: rgba(52,211,153,0.1);
+  color: #34d39a;
+  border: 1px solid rgba(52,211,153,0.3);
+}
+
+.stock-low {
+  background: rgba(245,166,35,0.1);
+  color: #f5a623;
+  border: 1px solid rgba(245,166,35,0.3);
+}
+
+.stock-rupture {
+  background: rgba(232,65,90,0.1);
+  color: #e8415a;
+  border: 1px solid rgba(232,65,90,0.3);
+}

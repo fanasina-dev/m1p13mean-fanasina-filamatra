@@ -1,22 +1,130 @@
-.form-container {
-  max-width: 500px;
-  margin: 40px auto;
-  background: #ffffff;
-  padding: 36px 40px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+/* src/app/components/boutique/ajout-produit/ajout-produit.css */
+/* ═══ Même design que le Dashboard ═══════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+
+/* ─── Variables identiques au Dashboard ──────────────────  */
+:host {
+  --bg:         #0d0f14;
+  --bg2:        #13161e;
+  --bg3:        #1a1e2a;
+  --border:     rgba(255, 255, 255, 0.07);
+  --text:       #e8eaf0;
+  --text-muted: #6b7280;
+  --accent:     #f5a623;
+  --accent2:    #e8415a;
+  --accent3:    #34d39a;
+  --accent4:    #4f8ef7;
+  --sidebar-w:  240px;
+  display: block;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
 }
 
-.form-container h2 {
-  margin-bottom: 28px;
-  font-size: 1.4rem;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ─── Layout ─────────────────────────────────────────────  */
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── Main ───────────────────────────────────────────────  */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  padding: 32px 36px;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(245, 166, 35, 0.05) 0%, transparent 60%),
+    var(--bg);
+}
+
+/* ─── Topbar (identique au Dashboard) ───────────────────  */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 36px;
+}
+
+.greeting {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.page-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  color: var(--text);
+  letter-spacing: -0.04em;
+}
+
+/* ─── Bouton Retour (style btn-add inversé) ─────────────  */
+.btn-retour {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 10px 20px;
+  border-radius: 10px;
   font-weight: 600;
-  color: #1a1a2e;
-  text-align: center;
-  border-bottom: 2px solid #e8e8f0;
-  padding-bottom: 16px;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  text-decoration: none;
 }
 
+.btn-retour:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* ─── Centrage du formulaire ────────────────────────────  */
+.form-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* ─── Card formulaire (identique aux .card du Dashboard) ─  */
+.form-container {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 32px 36px;
+  width: 100%;
+  max-width: 580px;
+  transition: box-shadow 0.2s;
+}
+
+.form-container:hover {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* ─── Titre du formulaire ───────────────────────────────  */
+.form-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ─── Fields ─────────────────────────────────────────────  */
 .field {
   display: flex;
   flex-direction: column;
@@ -24,55 +132,128 @@
 }
 
 .field label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #555577;
-  margin-bottom: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
 }
 
 .field input,
 .field textarea {
-  padding: 10px 14px;
-  border: 1.5px solid #d0d0e0;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  color: #1a1a2e;
-  background: #f9f9fc;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  color: var(--text);
+  font-size: 0.875rem;
+  font-family: 'DM Sans', sans-serif;
   outline: none;
-  font-family: inherit;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
 }
 
 .field input:focus,
 .field textarea:focus {
-  border-color: #6c63ff;
-  box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.12);
-  background: #ffffff;
+  border-color: var(--accent);
+  background: rgba(245, 166, 35, 0.03);
+  box-shadow: 0 0 0 3px rgba(245, 166, 35, 0.08);
 }
 
 .field textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 110px;
+  line-height: 1.6;
 }
 
-button[type="submit"] {
-  width: 100%;
-  padding: 12px;
-  margin-top: 8px;
-  background: #6c63ff;
-  color: #ffffff;
-  font-size: 1rem;
+/* ─── Boutons (même style que le Dashboard) ─────────────  */
+.form-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+
+.btn-annuler {
+  flex: 1;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text-muted);
+  padding: 11px;
+  font-size: 0.875rem;
   font-weight: 600;
-  border: none;
-  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
 }
 
-button[type="submit"]:hover {
-  background: #574fd6;
+.btn-annuler:hover {
+  border-color: var(--accent2);
+  color: var(--accent2);
+  background: rgba(232, 65, 90, 0.06);
 }
 
-button[type="submit"]:active {
+/* btn-submit = copie exacte du btn-add du Dashboard */
+.btn-submit {
+  flex: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--accent);
+  color: #0d0f14;
+  border: none;
+  padding: 11px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-submit:hover {
+  background: #ffb83f;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(245, 166, 35, 0.3);
+}
+
+.btn-submit:active {
   transform: scale(0.98);
+  box-shadow: none;
+}
+
+/* ─── Responsive (identique au Dashboard) ───────────────  */
+@media (max-width: 768px) {
+  .main         { margin-left: 0; padding: 20px 16px; }
+  .page-title   { font-size: 1.5rem; }
+  .form-container { padding: 22px 18px; }
+  .form-actions { flex-direction: column; }
+  .btn-annuler,
+  .btn-submit   { flex: none; width: 100%; }
+}
+/* ─── Field Row (prix + stock côte à côte) ──────────────  */
+.field-row {
+  display: flex;
+  gap: 16px;
+}
+
+.field-row .field {
+  flex: 1;
+}
+
+/* ─── Loading state ─────────────────────────────────────  */
+.loading-state {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
 }

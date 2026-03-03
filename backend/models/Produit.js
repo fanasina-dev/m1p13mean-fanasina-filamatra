@@ -10,9 +10,13 @@ const produitSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  stock: {
+    type: Number,
+    default: 0    // ← NOUVEAU
+  },
   boutique: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Boutique', // lien avec Boutique
+    ref: 'Boutique',
     required: true
   },
   dateCreation: {

@@ -17,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/fanasina-dev/m1p13mean-fanasina-filamatra/issues"
   },
-  "homepage": "https://github.com/fanasina-dev/m1p13mean-fanasina-filamatra#readme"
+  "homepage": "https://github.com/fanasina-dev/m1p13mean-fanasina-filamatra#readme",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "jsonwebtoken": "^9.0.3"
+  }
 }
