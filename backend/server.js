@@ -9,16 +9,20 @@ const PORT = 3000;
 
 console.log("MONGO_URI =", process.env.MONGO_URI);
 
-app.use(cors({ origin: '*' }));  // ← MODIFIÉ
+app.use(cors({ origin: '*' }));
 app.use(express.json());
 
 const produitsRoutes  = require('./routes/produits');
 const boutiquesRoutes = require('./routes/boutiques');
 const authRoutes      = require('./routes/auth');
+const adminRoutes     = require('./routes/admin');
+const clientRoutes    = require('./routes/client');  // ← NOUVEAU
 
 app.use('/api/produits',  produitsRoutes);
 app.use('/api/boutiques', boutiquesRoutes);
 app.use('/api/auth',      authRoutes);
+app.use('/api/admin',     adminRoutes);
+app.use('/api/client',    clientRoutes);  // ← NOUVEAU
 
 app.get('/', (req, res) => {
   res.send('Backend de la Boutique fonctionne 🚀');

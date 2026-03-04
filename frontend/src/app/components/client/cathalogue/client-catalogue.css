@@ -1,0 +1,332 @@
+/* src/app/components/client/catalogue/client-catalogue.css */
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
+:host { display: block; font-family: 'DM Sans', sans-serif; background: #0d0f14; color: #e8eaf0; min-height: 100vh; }
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* ── Navbar ──────────────────────────────────────────── */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #13161e;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  padding: 16px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: #f5a623;
+}
+
+.nav-actions { display: flex; align-items: center; gap: 12px; }
+
+.client-name { font-size: 0.875rem; color: #6b7280; }
+
+.btn-panier {
+  position: relative;
+  background: rgba(245,166,35,0.1);
+  border: 1px solid rgba(245,166,35,0.3);
+  color: #f5a623;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-panier:hover { background: rgba(245,166,35,0.2); }
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #e8415a;
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-commandes {
+  background: rgba(79,142,247,0.1);
+  border: 1px solid rgba(79,142,247,0.3);
+  color: #4f8ef7;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid rgba(232,65,90,0.3);
+  color: #e8415a;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+/* ── Commande msg ────────────────────────────────────── */
+.commande-msg {
+  background: rgba(52,211,153,0.1);
+  border: 1px solid rgba(52,211,153,0.3);
+  color: #34d39a;
+  padding: 14px 32px;
+  text-align: center;
+  font-weight: 600;
+}
+
+/* ── Main ────────────────────────────────────────────── */
+.main { padding: 32px; }
+
+.page-header { margin-bottom: 28px; }
+
+.page-header h1 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 2rem;
+  letter-spacing: -0.04em;
+}
+
+.page-header p { color: #6b7280; margin-top: 4px; }
+
+.loading, .empty {
+  text-align: center;
+  padding: 60px;
+  color: #6b7280;
+}
+
+/* ── Grid ────────────────────────────────────────────── */
+.produits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+}
+
+/* ── Card ────────────────────────────────────────────── */
+.produit-card {
+  background: #13161e;
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: transform 0.2s, border-color 0.2s;
+}
+
+.produit-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(245,166,35,0.3);
+}
+
+.produit-image {
+  background: #1a1e2a;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+.produit-info { padding: 16px; }
+
+.boutique-tag {
+  font-size: 0.72rem;
+  color: #4f8ef7;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 8px;
+}
+
+.produit-nom {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 6px;
+}
+
+.produit-desc {
+  font-size: 0.8rem;
+  color: #6b7280;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.produit-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.produit-prix {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  color: #f5a623;
+  font-size: 1.1rem;
+}
+
+.produit-stock {
+  font-size: 0.75rem;
+  color: #34d39a;
+  background: rgba(52,211,153,0.1);
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.btn-ajouter {
+  width: 100%;
+  background: #f5a623;
+  color: #0d0f14;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-ajouter:hover {
+  background: #ffb83f;
+  transform: translateY(-1px);
+}
+
+/* ── Panier sidebar ──────────────────────────────────── */
+.panier-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: 200;
+}
+
+.panier-sidebar {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background: #13161e;
+  border-left: 1px solid rgba(255,255,255,0.07);
+  z-index: 300;
+  display: flex;
+  flex-direction: column;
+  transition: right 0.3s ease;
+  padding: 24px;
+}
+
+.panier-sidebar.open { right: 0; }
+
+.panier-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.panier-header h3 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.panier-close {
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
+
+.panier-close:hover { background: rgba(255,255,255,0.05); color: #e8eaf0; }
+
+.panier-empty { text-align: center; color: #6b7280; padding: 40px 0; }
+
+.panier-items { flex: 1; overflow-y: auto; }
+
+.panier-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+.panier-item-info { display: flex; flex-direction: column; gap: 4px; }
+
+.panier-item-nom { font-size: 0.875rem; font-weight: 600; }
+
+.panier-item-prix { font-size: 0.8rem; color: #f5a623; }
+
+.panier-item-remove {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 4px;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.panier-item-remove:hover { background: rgba(232,65,90,0.1); }
+
+.panier-footer {
+  padding-top: 16px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.panier-total {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-size: 1rem;
+}
+
+.panier-total strong {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  color: #f5a623;
+  font-size: 1.2rem;
+}
+
+.btn-commander {
+  width: 100%;
+  background: #f5a623;
+  color: #0d0f14;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+}
+
+.btn-commander:hover {
+  background: #ffb83f;
+  box-shadow: 0 6px 20px rgba(245,166,35,0.3);
+}

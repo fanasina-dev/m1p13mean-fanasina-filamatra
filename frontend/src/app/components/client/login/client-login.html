@@ -1,0 +1,59 @@
+<!-- src/app/components/client/login/client-login.html -->
+<div class="login-page">
+  <div class="login-card">
+
+    <div class="login-header">
+      <span class="login-icon">🛍️</span>
+      <h1>Bienvenue</h1>
+      <p>Connectez-vous ou créez un compte</p>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab" [class.active]="activeTab === 'login'" (click)="setTab('login')">
+        Se connecter
+      </button>
+      <button class="tab" [class.active]="activeTab === 'register'" (click)="setTab('register')">
+        S'inscrire
+      </button>
+    </div>
+
+    <div *ngIf="errorMsg"   class="alert alert-error">❌ {{ errorMsg }}</div>
+    <div *ngIf="successMsg" class="alert alert-success">✅ {{ successMsg }}</div>
+
+    <!-- LOGIN -->
+    <form *ngIf="activeTab === 'login'" (ngSubmit)="onLogin()">
+      <div class="field">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="loginEmail" name="loginEmail" required placeholder="votre@email.com">
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" [(ngModel)]="loginPassword" name="loginPassword" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn-submit" [disabled]="isLoading">
+        {{ isLoading ? '⏳ Connexion...' : '🔐 Se connecter' }}
+      </button>
+    </form>
+
+    <!-- REGISTER -->
+    <form *ngIf="activeTab === 'register'" (ngSubmit)="onRegister()">
+      <div class="field">
+        <label>Nom complet</label>
+        <input type="text" [(ngModel)]="registerNom" name="registerNom" required placeholder="Votre nom">
+      </div>
+      <div class="field">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="registerEmail" name="registerEmail" required placeholder="votre@email.com">
+      </div>
+      <div class="field">
+        <label>Mot de passe</label>
+        <input type="password" [(ngModel)]="registerPassword" name="registerPassword" required placeholder="••••••••">
+      </div>
+      <button type="submit" class="btn-submit" [disabled]="isLoading">
+        {{ isLoading ? '⏳ Inscription...' : '✨ Créer mon compte' }}
+      </button>
+    </form>
+
+  </div>
+</div>

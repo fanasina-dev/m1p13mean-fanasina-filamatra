@@ -1,0 +1,90 @@
+<!-- src/app/components/client/catalogue/client-catalogue.html -->
+<div class="catalogue-page">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="brand">🛍️ Boutique</div>
+    <div class="nav-actions">
+      <span class="client-name" *ngIf="client">👤 {{ client.nom }}</span>
+      <button class="btn-panier" (click)="togglePanier()">
+        🛒 Panier
+        <span class="badge" *ngIf="getNbArticles() > 0">{{ getNbArticles() }}</span>
+      </button>
+      <button class="btn-commandes" routerLink="/client/commandes">📋 Mes commandes</button>
+      <button class="btn-logout" (click)="logout()">🚪</button>
+    </div>
+  </nav>
+
+  <!-- COMMANDE MSG -->
+  <div *ngIf="commandeMsg" class="commande-msg">{{ commandeMsg }}</div>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <div class="page-header">
+      <h1>Catalogue</h1>
+      <p>{{ produits.length }} produits disponibles</p>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">⏳ Chargement...</div>
+
+    <div *ngIf="!isLoading && produits.length === 0" class="empty">
+      Aucun produit disponible pour le moment.
+    </div>
+
+    <div class="produits-grid" *ngIf="!isLoading">
+      <div class="produit-card" *ngFor="let p of produits">
+        <div class="produit-image">
+          <span>🛍️</span>
+        </div>
+        <div class="produit-info">
+          <div class="boutique-tag">{{ p.boutique?.nom }}</div>
+          <h3 class="produit-nom">{{ p.nom }}</h3>
+          <p class="produit-desc">{{ p.description }}</p>
+          <div class="produit-footer">
+            <span class="produit-prix">{{ p.prix }} Ar</span>
+            <span class="produit-stock">{{ p.stock }} en stock</span>
+          </div>
+          <button class="btn-ajouter" (click)="ajouterAuPanier(p)">
+            + Ajouter au panier
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- PANIER SIDEBAR -->
+  <div class="panier-overlay" *ngIf="showPanier" (click)="togglePanier()"></div>
+  <div class="panier-sidebar" [class.open]="showPanier">
+    <div class="panier-header">
+      <h3>🛒 Mon Panier</h3>
+      <button class="panier-close" (click)="togglePanier()">✕</button>
+    </div>
+
+    <div *ngIf="panier.length === 0" class="panier-empty">
+      Votre panier est vide
+    </div>
+
+    <div class="panier-items">
+      <div class="panier-item" *ngFor="let item of panier; let i = index">
+        <div class="panier-item-info">
+          <span class="panier-item-nom">{{ item.nom }}</span>
+          <span class="panier-item-prix">{{ item.prix }} Ar × {{ item.quantite }}</span>
+        </div>
+        <button class="panier-item-remove" (click)="retirerDuPanier(i)">🗑️</button>
+      </div>
+    </div>
+
+    <div class="panier-footer" *ngIf="panier.length > 0">
+      <div class="panier-total">
+        <span>Total</span>
+        <strong>{{ getTotal() }} Ar</strong>
+      </div>
+      <button class="btn-commander" (click)="passerCommande()">
+        ✅ Commander
+      </button>
+    </div>
+  </div>
+
+</div>

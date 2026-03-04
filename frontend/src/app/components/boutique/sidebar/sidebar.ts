@@ -1,11 +1,12 @@
+// src/app/components/boutique/sidebar/sidebar.ts
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
 
 interface NavItem {
-  path: string;
-  label: string;
-  icon: string;
+  path:   string;
+  label:  string;
+  icon:   string;
   exact?: boolean;
   badge?: number;
 }
@@ -22,10 +23,10 @@ export class SidebarComponent {
   isCollapsed = false;
 
   navItems: NavItem[] = [
-    { path: '/dashboard',   label: 'Dashboard',   icon: '⊞',  exact: true },
-    { path: '/produits',    label: 'Produits',    icon: '📦'               },
-    { path: '/produits/ajouter', label: 'Ajouter un produit', icon: '➕', exact: true },
-    // Ajoutez d'autres liens ici selon vos besoins
+    { path: '/dashboard',         label: 'Dashboard',         icon: '⊞', exact: true },
+    { path: '/produits',          label: 'Produits',          icon: '📦'              },
+    { path: '/produits/ajouter',  label: 'Ajouter un produit', icon: '➕', exact: true },
+    { path: '/profil',            label: 'Mon Profil',        icon: '👤', exact: true }, // ← NOUVEAU
   ];
 
   constructor(private router: Router) {}

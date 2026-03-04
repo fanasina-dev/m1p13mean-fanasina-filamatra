@@ -1,0 +1,60 @@
+<!-- src/app/components/client/commandes/client-commandes.html -->
+<div class="commandes-page">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="brand">🛍️ Boutique</div>
+    <div class="nav-actions">
+      <span class="client-name" *ngIf="client">👤 {{ client.nom }}</span>
+      <button class="btn-catalogue" routerLink="/client/catalogue">🛍️ Catalogue</button>
+      <button class="btn-logout" (click)="logout()">🚪</button>
+    </div>
+  </nav>
+
+  <main class="main">
+
+    <div class="page-header">
+      <h1>📋 Mes Commandes</h1>
+      <p>{{ commandes.length }} commande(s)</p>
+    </div>
+
+    <div *ngIf="isLoading" class="loading">⏳ Chargement...</div>
+
+    <div *ngIf="!isLoading && commandes.length === 0" class="empty">
+      <p>Vous n'avez pas encore passé de commande.</p>
+      <button class="btn-catalogue" routerLink="/client/catalogue">
+        🛍️ Voir le catalogue
+      </button>
+    </div>
+
+    <div class="commandes-list" *ngIf="!isLoading">
+      <div class="commande-card" *ngFor="let c of commandes">
+
+        <div class="commande-header">
+          <div>
+            <span class="commande-id">#{{ c._id | slice:0:8 }}...</span>
+            <span class="commande-date">{{ c.createdAt | date:'dd/MM/yyyy à HH:mm' }}</span>
+          </div>
+          <span class="commande-statut" [class.statut-attente]="c.statut === 'en attente'">
+            {{ c.statut }}
+          </span>
+        </div>
+
+        <div class="commande-items">
+          <div class="commande-item" *ngFor="let item of c.items">
+            <span class="item-nom">{{ item.nom }}</span>
+            <span class="item-detail">{{ item.quantite }} × {{ item.prix }} Ar</span>
+            <span class="item-sous-total">{{ item.quantite * item.prix }} Ar</span>
+          </div>
+        </div>
+
+        <div class="commande-footer">
+          <span>Total</span>
+          <strong>{{ c.total }} Ar</strong>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</div>

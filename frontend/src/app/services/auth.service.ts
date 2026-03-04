@@ -1,6 +1,6 @@
 // src/app/services/auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -31,6 +31,19 @@ export class AuthService {
     );
   }
 
+  getProfil(): Observable<any> {
+    return this.http.get(`${this.apiUrl}/profil`, { headers: this.getHeaders() });
+  }
+
+  updateProfil(data: { nom?: string; password?: string; photo?: string }): Observable<any> {
+    return this.http.put(`${this.apiUrl}/profil`, data, { headers: this.getHeaders() }).pipe(
+      tap((res: any) => {
+        localStorage.setItem('token',    res.token);
+        localStorage.setItem('boutique', JSON.stringify(res.boutique));
+      })
+    );
+  }
+
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('boutique');
@@ -47,5 +60,9 @@ export class AuthService {
   getBoutique(): any {
     const b = localStorage.getItem('boutique');
     return b ? JSON.parse(b) : null;
+  }
+
+  private getHeaders(): HttpHeaders {
+    return new HttpHeaders({ Authorization: `Bearer ${this.getToken()}` });
   }
 }

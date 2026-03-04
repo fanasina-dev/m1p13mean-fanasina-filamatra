@@ -1,0 +1,44 @@
+<!-- src/app/components/admin/login/admin-login.html -->
+<div class="login-page">
+  <div class="login-card">
+
+    <div class="login-header">
+      <span class="login-icon">🛡️</span>
+      <h1>Administration</h1>
+      <p>Connectez-vous à votre espace admin</p>
+    </div>
+
+    <div *ngIf="errorMsg" class="alert-error">❌ {{ errorMsg }}</div>
+
+    <form (ngSubmit)="onLogin()">
+
+      <div class="field">
+        <label>Email</label>
+        <input
+          type="email"
+          [(ngModel)]="email"
+          name="email"
+          required
+          placeholder="admin@admin.com"
+        >
+      </div>
+
+      <div class="field">
+        <label>Mot de passe</label>
+        <input
+          type="password"
+          [(ngModel)]="password"
+          name="password"
+          required
+          placeholder="••••••••"
+        >
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="isLoading">
+        {{ isLoading ? '⏳ Connexion...' : '🔐 Se connecter' }}
+      </button>
+
+    </form>
+
+  </div>
+</div>

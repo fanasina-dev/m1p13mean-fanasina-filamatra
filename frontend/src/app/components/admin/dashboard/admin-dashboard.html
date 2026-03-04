@@ -1,0 +1,145 @@
+<!-- src/app/components/admin/dashboard/admin-dashboard.html -->
+<div class="admin-layout">
+
+  <!-- SIDEBAR -->
+  <aside class="admin-sidebar">
+    <div class="brand">
+      <span>🛡️</span>
+      <span>Admin</span>
+    </div>
+    <nav class="nav">
+      <a class="nav-item" [class.active]="activeTab === 'boutiques'" (click)="setTab('boutiques')">
+        🏪 Boutiques
+      </a>
+      <a class="nav-item" [class.active]="activeTab === 'produits'" (click)="setTab('produits')">
+        📦 Produits
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <button class="btn-logout" (click)="logout()">🚪 Déconnexion</button>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <header class="topbar">
+      <h1 class="page-title">Dashboard Admin</h1>
+    </header>
+
+    <div *ngIf="isLoading" class="loading-state">⏳ Chargement...</div>
+
+    <div *ngIf="!isLoading">
+
+      <!-- KPI -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-icon">🏪</span>
+          <div>
+            <span class="kpi-label">Boutiques</span>
+            <span class="kpi-value">{{ totalBoutiques }}</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-icon">📦</span>
+          <div>
+            <span class="kpi-label">Produits</span>
+            <span class="kpi-value">{{ totalProduits }}</span>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-icon">💰</span>
+          <div>
+            <span class="kpi-label">Valeur totale</span>
+            <span class="kpi-value">{{ valeurTotale | number:'1.0-0' }} Ar</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="tabs">
+        <button class="tab" [class.active]="activeTab === 'boutiques'" (click)="setTab('boutiques')">
+          🏪 Boutiques ({{ totalBoutiques }})
+        </button>
+        <button class="tab" [class.active]="activeTab === 'produits'" (click)="setTab('produits')">
+          📦 Produits ({{ totalProduits }})
+        </button>
+      </div>
+
+      <!-- TABLE BOUTIQUES -->
+      <div class="card" *ngIf="activeTab === 'boutiques'">
+        <div class="card-header">
+          <h3>Liste des Boutiques</h3>
+        </div>
+        <div *ngIf="boutiques.length === 0" class="empty-state">
+          Aucune boutique enregistrée.
+        </div>
+        <table *ngIf="boutiques.length > 0" class="data-table">
+          <thead>
+            <tr>
+              <th>Nom</th>
+              <th>Email</th>
+              <th>Créée le</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let b of boutiques">
+              <td>
+                <div class="boutique-cell">
+                  <div class="avatar">{{ b.nom?.charAt(0) }}</div>
+                  <span>{{ b.nom }}</span>
+                </div>
+              </td>
+              <td>{{ b.email }}</td>
+              <td>{{ b.createdAt | date:'dd/MM/yyyy' }}</td>
+              <td>
+                <button class="btn-delete" (click)="supprimerBoutique(b._id, b.nom)">
+                  🗑️ Supprimer
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- TABLE PRODUITS -->
+      <div class="card" *ngIf="activeTab === 'produits'">
+        <div class="card-header">
+          <h3>Liste de tous les Produits</h3>
+        </div>
+        <div *ngIf="produits.length === 0" class="empty-state">
+          Aucun produit enregistré.
+        </div>
+        <table *ngIf="produits.length > 0" class="data-table">
+          <thead>
+            <tr>
+              <th>Produit</th>
+              <th>Boutique</th>
+              <th>Prix</th>
+              <th>Stock</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let p of produits">
+              <td>{{ p.nom }}</td>
+              <td>
+                <span class="boutique-badge">{{ p.boutique?.nom }}</span>
+              </td>
+              <td><strong style="color: #f5a623">{{ p.prix }} Ar</strong></td>
+              <td>
+                <span class="stock-badge"
+                  [class.stock-ok]="(p.stock || 0) > 5"
+                  [class.stock-low]="(p.stock || 0) > 0 && (p.stock || 0) <= 5"
+                  [class.stock-rupture]="(p.stock || 0) === 0">
+                  {{ (p.stock || 0) === 0 ? 'Rupture' : p.stock + ' unités' }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </main>
+</div>
